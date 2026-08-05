@@ -26,4 +26,14 @@ export class SimulationObject {
     this.mass = mass;
     this.radius = radius;
   }
+
+  update(deltaTime: number) {
+    this.velocity = this.velocity.add(
+      this.acceleration.multiply(deltaTime)
+    );
+  
+    this.position = this.position.add(
+      this.velocity.multiply(deltaTime)
+    );
+  }
 }
