@@ -1,3 +1,4 @@
+import SimulationCanvas from "@/features/simulation/renderer/SimulationCanvas";
 function LandingPage() {
     return (
       <main>
@@ -10,7 +11,9 @@ function LandingPage() {
         <button>
           Upload Question
         </button>
+        <SimulationCanvas />
       </main>
+      
     );
   }
   
