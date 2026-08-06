@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { generateExperiment } from "@/services/api";
 import QuestionInput from "@/components/question/QuestionInput";
 import GenerateButton from "@/components/question/GenerateButton";
 
@@ -8,10 +8,18 @@ export default function LandingPage() {
   const [question, setQuestion] = useState("");
   const navigate = useNavigate();
 
-  function handleGenerate() {
-    console.log(question);
-
-    navigate("/experiment");
+  async function handleGenerate() {
+    console.log("Button Clicked!");
+  
+    try {
+      const result = await generateExperiment(question);
+  
+      console.log(result);
+  
+      navigate("/experiment");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
