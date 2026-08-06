@@ -1,51 +1,24 @@
+import { ai } from "../shared/gemini/gemini.service";
+import { projectilePrompt } from "../prompts/projectile.prompt";
 import { ExperimentBlueprint } from "./experiment.types";
 
-export function generateBlueprint(
+export async function generateBlueprint(
   question: string
-): ExperimentBlueprint {
-  console.log("Question:", question);
+): Promise<ExperimentBlueprint> {
 
-  return {
-    version: "1.0",
+  const prompt = `
+${projectilePrompt}
 
-    topic: "projectile_motion",
+Question:
+${question}
+`;
 
-    simulation: {
-      type: "projectile",
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-pro",
+    contents: prompt,
+  });
 
-      variables: {
-        velocity: 20,
-        angle: 45,
-        gravity: 9.81,
-      },
+  const text = response.text;
 
-      editable: [
-        "velocity",
-        "angle",
-        "gravity",
-      ],
-    },
-
-    learning: {
-      objective:
-        "Understand how launch angle affects projectile motion.",
-
-      hints: [
-        "Increase the launch angle.",
-        "Observe the maximum height.",
-        "Compare the range.",
-      ],
-
-      reflection: [
-        "What changed when the angle increased?",
-      ],
-    },
-
-    ui: {
-      title: "Projectile Motion",
-
-      description:
-        "Explore how different launch parameters affect the trajectory.",
-    },
-  };
+  return JSON.parse(text!) as ExperimentBlueprint;
 }
