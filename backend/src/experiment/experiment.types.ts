@@ -1,4 +1,6 @@
 export interface ExperimentBlueprint {
+    version: "1.0";
+  
     topic: string;
   
     simulation: {
@@ -15,5 +17,11 @@ export interface ExperimentBlueprint {
       hints: string[];
   
       reflection: string[];
+    };
+  
+    ui: {
+      title: string;
+  
+      description: string;
     };
   }
