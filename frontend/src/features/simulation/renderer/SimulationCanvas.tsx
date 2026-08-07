@@ -37,6 +37,8 @@ const ctx = context;
     let animationId = 0;
     let startTime: number | null = null;
 
+    const trail: { x: number; y: number }[] = [];
+
     function animate(timestamp: number) {
       if (startTime === null) {
         startTime = timestamp;
@@ -51,6 +53,10 @@ const ctx = context;
 
       const drawX = startX + x * scale;
       const drawY = groundY - y * scale;
+      trail.push({
+        x: drawX,
+        y: drawY,
+      });
 
       
       ctx.clearRect(0, 0, width, height);
@@ -66,6 +72,23 @@ const ctx = context;
       ctx.moveTo(0, groundY);
       ctx.lineTo(width, groundY);
       ctx.stroke();
+
+      // Trajectory
+ctx.beginPath();
+
+for (let i = 0; i < trail.length; i++) {
+  const point = trail[i];
+
+  if (i === 0) {
+    ctx.moveTo(point.x, point.y);
+  } else {
+    ctx.lineTo(point.x, point.y);
+  }
+}
+
+ctx.strokeStyle = "#60a5fa";
+ctx.lineWidth = 3;
+ctx.stroke(); 
 
       // Projectile
       ctx.beginPath();
