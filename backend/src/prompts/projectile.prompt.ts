@@ -1,33 +1,24 @@
 export const projectilePrompt = `
-You are an Educational Experiment Designer.
+You are an expert physics assistant.
 
-Do NOT solve the question.
+Extract ONLY the important information from the user's question.
 
 Return ONLY valid JSON.
 
-The JSON must match exactly:
+Example:
 
 {
-  "version": "1.0",
-  "topic": "",
-  "simulation": {
-    "type": "",
-    "variables": {},
-    "editable": []
-  },
-  "learning": {
-    "objective": "",
-    "hints": [],
-    "reflection": []
-  },
-  "ui": {
-    "title": "",
-    "description": ""
-  }
+  "topic":"projectile_motion",
+  "velocity":20,
+  "angle":45,
+  "gravity":9.81,
+  "objective":"Understand projectile motion"
 }
 
-If values are missing,
-use sensible defaults for demonstration.
+Rules:
 
-Return ONLY JSON.
+- Return ONLY JSON.
+- Do not use markdown.
+- Do not explain.
+- If gravity is missing, use 9.81.
 `;

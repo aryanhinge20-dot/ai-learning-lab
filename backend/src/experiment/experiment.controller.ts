@@ -1,13 +1,21 @@
 import { Request, Response } from "express";
 import { generateBlueprint } from "./experiment.service";
 
-export function generateExperiment(
+export async function generateExperiment(
   req: Request,
   res: Response
 ) {
-  const { question } = req.body;
+  try {
+    const { question } = req.body;
 
-  const blueprint = generateBlueprint(question);
+    const blueprint = await generateBlueprint(question);
 
-  res.json(blueprint);
+    res.json(blueprint);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Failed to generate experiment.",
+    });
+  }
 }
