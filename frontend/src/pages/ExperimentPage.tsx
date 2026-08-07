@@ -26,6 +26,20 @@ export default function ExperimentPage() {
     blueprint.simulation.variables.gravity
   );
 
+  const radians = (angle * Math.PI) / 180;
+
+const flightTime =
+  (2 * velocity * Math.sin(radians)) / gravity;
+
+const maxHeight =
+  (velocity * velocity * Math.sin(radians) ** 2) /
+  (2 * gravity);
+
+const range =
+  (velocity * velocity * Math.sin(2 * radians)) /
+  gravity;
+
+
   return (
     <main className="min-h-screen bg-slate-950 text-white p-8">
       <h1 className="text-5xl font-bold">
@@ -50,6 +64,32 @@ export default function ExperimentPage() {
 <h2 className="text-xl font-semibold">
   Simulation Controls
 </h2>
+
+
+
+<hr className="my-6 border-slate-700" />
+
+<h3 className="text-lg font-semibold mb-4">
+  📊 Physics
+</h3>
+
+<div className="space-y-3 text-slate-300">
+  <p>📏 Range: <b>{range.toFixed(2)} m</b></p>
+
+  <p>⬆ Max Height: <b>{maxHeight.toFixed(2)} m</b></p>
+
+  <p>⏱ Flight Time: <b>{flightTime.toFixed(2)} s</b></p>
+</div>
+
+<hr className="my-6 border-slate-700" />
+
+<h3 className="text-lg font-semibold">
+  🤖 AI Hint
+</h3>
+
+<p className="mt-3 text-slate-400">
+  {blueprint.learning.hints[0]}
+</p>
 
 <div className="mt-6">
 
