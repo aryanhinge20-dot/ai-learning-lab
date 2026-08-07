@@ -1,3 +1,10 @@
+import { useMemo } from "react";
+
+import ChallengeCard from "@/features/challenge/ChallengeCard";
+import {
+  createDefaultChallenge,
+  checkChallenge,
+} from "@/features/challenge/ChallengeEngine";  
 import { Navigate } from "react-router-dom";
 
 import { useExperiment } from "@/context/ExperimentContext";
@@ -9,7 +16,7 @@ export default function ExperimentPage() {
   const { blueprint } = useExperiment();
 
   if (!blueprint) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" replace />; 
   }
 
 
@@ -26,6 +33,8 @@ export default function ExperimentPage() {
     blueprint.simulation.variables.gravity
   );
 
+  // ---------------- Physics Calculations ----------------
+
   const radians = (angle * Math.PI) / 180;
 
 const flightTime =
@@ -39,6 +48,13 @@ const range =
   (velocity * velocity * Math.sin(2 * radians)) /
   gravity;
 
+
+  const challenge = useMemo(
+    () => createDefaultChallenge(),
+    []
+  );
+  
+  const success = checkChallenge(range, challenge);
 
   return (
     <main className="min-h-screen bg-slate-950 text-white p-8">
@@ -86,6 +102,12 @@ const range =
 <h3 className="text-lg font-semibold">
   🤖 AI Hint
 </h3>
+
+<ChallengeCard
+  challenge={challenge}
+  currentRange={range}
+  success={success}
+/>
 
 <p className="mt-3 text-slate-400">
   {blueprint.learning.hints[0]}

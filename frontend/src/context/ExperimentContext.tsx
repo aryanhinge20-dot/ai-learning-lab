@@ -17,7 +17,7 @@ export interface ExperimentBlueprint {
     editable: string[];
   };
 
-  learning: {
+  learning: { 
     objective: string;
     hints: string[];
     reflection: string[];
