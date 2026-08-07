@@ -1,4 +1,4 @@
-import { ai } from "../shared/gemini/gemini.service";
+import { ai } from "../shared/ai/ai.service";
 import { projectilePrompt } from "../prompts/projectile.prompt";
 import { ExperimentBlueprint } from "./experiment.types";
 
